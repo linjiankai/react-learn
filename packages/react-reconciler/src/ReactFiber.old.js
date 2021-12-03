@@ -118,36 +118,41 @@ function FiberNode(
   mode: TypeOfMode,
 ) {
   // Instance
-  this.tag = tag;
-  this.key = key;
-  this.elementType = null;
-  this.type = null;
-  this.stateNode = null;
+  // 作为静态的数据结构 保存节点的信息 
+  this.tag = tag;  //对应组件的类型
+  this.key = key;  //key属性
+  this.elementType = null;  //元素类型
+  this.type = null; //function或者class
+  this.stateNode = null; //真实的节点
 
   // Fiber
-  this.return = null;
-  this.child = null;
-  this.sibling = null;
+  // 用于连接其他Fiber节点形成Fiber树
+  this.return = null; // 指向父级Fiber节点
+  this.child = null; // 指向子Fiber节点
+  this.sibling = null; 
   this.index = 0;
 
   this.ref = null;
 
-  this.pendingProps = pendingProps;
-  this.memoizedProps = null;
-  this.updateQueue = null;
-  this.memoizedState = null;
-  this.dependencies = null;
+  // 作为动态的工作单元的属性
+  this.pendingProps = pendingProps; // 本次渲染需要使用的 props
+  this.memoizedProps = null;  // 上次渲染使用的 props
+  this.updateQueue = null;  // 用于状态更新、回调函数、DOM更新的队列
+  this.memoizedState = null;  // 上次渲染后的 state 状态
+  this.dependencies = null; // contexts、events 等依赖
 
   this.mode = mode;
 
   // Effects
-  this.flags = NoFlags;
-  this.subtreeFlags = NoFlags;
-  this.deletions = null;
+  this.flags = NoFlags; // 记录更新时当前 fiber 的副作用(删除、更新、替换等)状态
+  this.subtreeFlags = NoFlags; // 当前子树的副作用状态
+  this.deletions = null; // 要删除的子 fiber
 
+  // 调度优先级相关
   this.lanes = NoLanes;
   this.childLanes = NoLanes;
 
+  // 指向该fiber在另一次更新时对应的fiber
   this.alternate = null;
 
   if (enableProfilerTimer) {

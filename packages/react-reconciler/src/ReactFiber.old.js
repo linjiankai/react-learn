@@ -127,9 +127,9 @@ function FiberNode(
 
   // Fiber
   // 用于连接其他Fiber节点形成Fiber树
-  this.return = null; // 指向父级Fiber节点
-  this.child = null; // 指向子Fiber节点
-  this.sibling = null; 
+  this.return = null; // 指向父fiber节点
+  this.child = null; // 指向子fiber节点
+  this.sibling = null; // 指向兄弟fiber节点
   this.index = 0;
 
   this.ref = null;
